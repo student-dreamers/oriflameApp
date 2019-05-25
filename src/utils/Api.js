@@ -11,8 +11,8 @@ export class Api {
         return this._fetchResource(`/about`);
     }
 
-    getIngredientes() {
-        return this._fetchResource(`/ingredientes`);
+    getIngredients() {
+        return this._fetchResource(`/ingredients`);
     }
 
     getCategories() {
@@ -31,6 +31,7 @@ export class Api {
     }
 
     async _fetchResource(path) {
+        console.log(path);
         const response = await fetch(`${this.apiUrl}${path}`);
         return await response.json();
     }

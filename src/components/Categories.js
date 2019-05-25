@@ -1,44 +1,49 @@
-import React from 'react';
+import React, { Component } from 'react';
 import { View, StyleSheet, TouchableOpacity } from 'react-native';
 import Text from '@components/Text';
+import { api } from '../utils/Api';
 
-export const Categories = props => {
-    const categories = [
-        'Tělové krémy',
-        'Sprchové gely',
-        'Vlasy',
-        'Krémy na obličej',
-        'Make-up',
-        'Oči',
-        'Rty',
-        'Vůně',
-        'Deodoranty',
-        'Čištění pleti',
-    ];
+export class Categories extends Component {
+    state = {
+        categories: [{
+            name: 'loading...',
+        }],
+    }
+
+    constructor(props) {
+        console.log('lol');
+        super(props);
+
+        api.getCategories()
+            .then(categories => {
+                console.log(categories);
+                this.setState({
+                    categories
+                })
+                
+            })
+    }
+
 
     categoryClicked = (id) => {
         props.openProducts();
     }
 
-    let categoriesElements = [];
-
-    categories.map( (category, index) => {
-        categoriesElements.push(
-            <TouchableOpacity id={category} key={index} onPress={(e) => {
-                categoryClicked(e.id);
-            }} style={styles.categoriesButtons}>
-                <Text style={styles.categoriesText}>{category}</Text>
-            </TouchableOpacity>
+    render() {
+        console.log(this.state.categories);
+        return (
+            <View style={styles.container}>
+                {this.state.categories.map((category, index) => (
+                        <TouchableOpacity id={category} key={index} onPress={(e) => {
+                            categoryClicked(e.id);
+                        }} style={styles.categoriesButtons}>
+                            <Text style={styles.categoriesText}>{category.name}</Text>
+                        </TouchableOpacity>
+                ))}
+            </View>
         )
-    })
-
-    return(
-        <View style={styles.container}>
-            {categoriesElements}
-        </View>
-    )
+    }
 }
-    
 
 const styles = StyleSheet.create({
     container: {

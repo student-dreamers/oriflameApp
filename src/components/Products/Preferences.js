@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
-import { View, StyleSheet, CheckBox } from 'react-native';
+import { View, StyleSheet, FlatList } from 'react-native';
 import Text from '@components/Text';
-import Checkbox from '@components/Checkbox';
+import { Checkbox } from '@components/Checkbox';
 
 export class Preferences extends Component {
     constructor(props) {
@@ -15,32 +15,49 @@ export class Preferences extends Component {
         }
         allergenElements = [];
 
-        this.state.allergens.map( (allergen, index) => {
+        this.state.allergens.map((allergen, index) => {
             allergenElements.push(
-                <CheckBox onChange={this.onCheck} key={index}
-                data-allergen={allergen} label={allergen}/>
+                <Checkbox
+                    title={allergen}
+                    onCheck={this.onCheck}
+                    key={index}
+                />
             )
         })
     }
 
     onCheck = (checked, allergen) => {
-        if (checked){
-            let selectedAllergens = this.state.selectedAllergens;
+        console.log(checked);
+        let selectedAllergens = this.state.selectedAllergens;
+        if (checked) {
             selectedAllergens.push(allergen);
-            this.setState({
-                selectedAllergens: selectedAllergens,
-            })
+        } 
+        else if (selectedAllergens.indexOf(allergen) !== -1){
+            selectedAllergens.splice(
+                selectedAllergens.indexOf(allergen),
+                1
+            )
         }
+        this.setState({
+            selectedAllergens: selectedAllergens,
+        })
+        console.log(this.state.selectedAllergens);
     }
 
 
     render() {
         return (
             <View style={[this.props.style, styles.container]}>
-                    <Text style={styles.preferencesText}>Nesmí obsahovat:</Text>
-                    <View style={styles.preferencesContainer}>
-                        {allergenElements}
-                    </View>
+                <Text style={styles.preferencesText}>Nesmí obsahovat:</Text>
+                <View style={styles.preferencesContainer}>
+                    <FlatList
+                        style={{
+                            paddingBottom: 20,
+                        }}
+                        data={allergenElements}
+                        renderItem={ ({item}) => item}
+                    />
+                </View>
             </View>
         )
     }
@@ -54,11 +71,13 @@ const styles = StyleSheet.create({
         alignItems: 'center',
     },
     preferencesContainer: {
-        flex: 1,
+        flexGrow: 0,
+        height: '80%',
         alignItems: 'flex-start',
     },
     preferencesText: {
         color: 'black',
         fontSize: 20,
+        marginBottom: 20,
     },
 })

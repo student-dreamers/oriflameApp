@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
-import { View, StyleSheet, CheckBox } from 'react-native';
-import Text from '@components/Text';
+import { StyleSheet } from 'react-native';
+import { CheckBox } from 'react-native-elements'
 
 export class Checkbox extends Component {
     state = {
@@ -9,30 +9,17 @@ export class Checkbox extends Component {
 
     render() {
         return (
-            <View style={styles.container}>
-                <CheckBox onValueChange={() => {
+                <CheckBox 
+                title={this.props.title}
+                onPress={() => {
+                    this.props.onCheck(!this.state.checked, this.props.title);
                     this.setState( prevState => ({
                         checked: !prevState.checked,
                     }))
-                    this.props.onChange(this.state.checked, this.props.dataAllergen);
-                }} value={this.state.checked}
-                style={styles.checkbox} />
-                <Text>{this.props.label}</Text>
-            </View>
+                }}
+                checked={this.state.checked}
+                checkedColor='#b4d329'
+                />
         )
     }
 }
-
-const styles = StyleSheet.create({
-    container: {
-        flexDirection: 'row',
-        alignItems: 'center',
-        justifyContent: 'space-between',
-    },
-    checkbox: {
-        marginRight: 10,
-    },
-    checkboxText: {
-
-    }
-});

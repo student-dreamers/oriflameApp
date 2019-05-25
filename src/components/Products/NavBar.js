@@ -45,6 +45,7 @@ export class NavBar extends Component {
 
 const styles = StyleSheet.create({
     container: {
+        width: '100%',
         flexDirection: 'row',
         justifyContent: 'space-between',
         alignItems: 'center',

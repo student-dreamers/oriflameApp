@@ -27,7 +27,7 @@ export const Categories = props => {
             <TouchableOpacity id={category} key={index} onPress={(e) => {
                 categoryClicked(e.id);
             }} style={styles.categoriesButtons}>
-                <Text>{category}</Text>
+                <Text style={styles.categoriesText}>{category}</Text>
             </TouchableOpacity>
         )
     })
@@ -48,7 +48,6 @@ const styles = StyleSheet.create({
         flexWrap: 'wrap',
     },
     categoriesButtons: {
-        borderWidth: 2,
         borderRadius: 15,
         margin: 20,
         paddingTop: 5,
@@ -58,5 +57,14 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         justifyContent: 'center',
         width: '35%',
+        height: '10%',
+        backgroundColor: '#b4d329',
+        flexGrow: 0,
+        flexShrink: 0,
     },
+    categoriesText: {
+        textAlign: 'center',
+        color: 'white',
+        fontSize: 20,
+    }
 })

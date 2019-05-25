@@ -1,7 +1,9 @@
 import React, { Component } from 'react';
 import { View, Modal, StyleSheet } from 'react-native';
+import { ifIphoneX } from 'react-native-iphone-x-helper';
 import { Preferences } from './Preferences';
 import { NavBar } from './NavBar';
+
 
 export class Products extends Component {
     state = {
@@ -10,7 +12,7 @@ export class Products extends Component {
 
     showPreferencesPanel = () => {
         this.setState({
-            preferencesHeight: '40%',
+            preferencesHeight: '100%',
         })
     }
     hidePreferencesPanel = () => {
@@ -21,7 +23,8 @@ export class Products extends Component {
 
     render() {
         return (
-            <Modal visible={this.props.modalOpen}>
+            <Modal visible={this.props.modalOpen} 
+            onRequestClose={this.props.closeProducts}>
                 <View style={styles.container}>
                     <NavBar style={styles.NavBar}
                         showPreferencesPanel={this.showPreferencesPanel}
@@ -43,6 +46,10 @@ export class Products extends Component {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
+        alignItems: 'center',
+        ...ifIphoneX({
+            paddingTop: 50
+        }),
     },
     NavBar: {
         height: '10%',

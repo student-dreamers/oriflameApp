@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import { StyleSheet, View } from 'react-native';
+import { ifIphoneX } from 'react-native-iphone-x-helper';
 
-import { BarcodeScanner }  from '@components/BarcodeScanner/BarcodeScanner';
+import { BarcodeScanner } from '@components/BarcodeScanner/BarcodeScanner';
 import { NavBar } from '@components/NavBar';
 import { Categories } from '@components/Categories';
 import { Products } from '@components/Products/Products';
@@ -39,13 +40,13 @@ export default class App extends Component {
   render() {
     return (
       <View style={styles.container}>
-        <NavBar style={styles.navBar} openBarcodeScanner={this.openBarcodeScanner}/>
+        <NavBar style={styles.navBar} openBarcodeScanner={this.openBarcodeScanner} />
         <View style={styles.main}>
-        <Categories style={styles.categories} openProducts={this.openProducts}/>
-        <Products modalOpen={this.state.productsOpen} closeProducts={this.closeProducts}/>
+          <Categories style={styles.categories} openProducts={this.openProducts} />
+          <Products modalOpen={this.state.productsOpen} closeProducts={this.closeProducts} />
         </View>
         <BarcodeScanner modalOpen={this.state.barcodeScannerOpen}
-        closeBarcodeScanner={this.closeBarcodeScanner}/>
+          closeBarcodeScanner={this.closeBarcodeScanner} />
       </View>
     );
   }
@@ -56,6 +57,9 @@ const styles = StyleSheet.create({
     flex: 1,
     height: '100%',
     width: '100%',
+    ...ifIphoneX({
+      paddingTop: 50
+    }),
   },
   navBar: {
     height: '20%',

@@ -5,7 +5,7 @@ import { ReactCamera } from './RNCamera/RNCamera';
 
 export const BarcodeScanner = props => {
     return (
-        <Modal visible={props.modalOpen} style={styles.modal}>
+        <Modal visible={props.modalOpen} style={styles.modal} onRequestClose={props.closeBarcodeScanner}>
             <View style={styles.container}>
                 <TouchableOpacity onPress={props.closeBarcodeScanner} style={styles.backButton}>
                     <Text>Zpět</Text>

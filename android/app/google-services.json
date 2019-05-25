@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "460677914026",
+    "firebase_url": "https://oriflameapp.firebaseio.com",
+    "project_id": "oriflameapp",
+    "storage_bucket": "oriflameapp.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:460677914026:android:a0b15a832dcf9fa9",
+        "android_client_info": {
+          "package_name": "com.oriflameapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "460677914026-ks08f1tkcitsdbvpbmecvurasm1dd95b.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDhNHZwTth6epig7yol9na6_HQCHXPLzfU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "460677914026-ks08f1tkcitsdbvpbmecvurasm1dd95b.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

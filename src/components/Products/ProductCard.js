@@ -3,11 +3,17 @@ import { View, Text, Image, StyleSheet } from 'react-native';
 
 export const ProductCard = props => (
     <View style={styles.container}>
-        <Image source={{
-            uri: props.imageSource
-        }} style={styles.image} />
+        {
+            props.url_image ?  <Image source={{
+                uri: props.url_image
+            }} style={styles.image} />
+            :
+            null
+        }
+        
         <View style={styles.textContainer}>
-
+            <Text>{props.name}</Text>
+            <Text>{props.price}</Text>
         </View>
     </View>
 )

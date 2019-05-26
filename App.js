@@ -11,6 +11,7 @@ export default class App extends Component {
   state = {
     barcodeScannerOpen: false,
     productsOpen: false,
+    productsID: false,
   }
 
   openBarcodeScanner = () => {
@@ -25,9 +26,10 @@ export default class App extends Component {
     })
   }
 
-  openProducts = () => {
+  openProducts = (id) => {
     this.setState({
       productsOpen: true,
+      productsID: id,
     })
   }
 
@@ -43,7 +45,8 @@ export default class App extends Component {
         <NavBar style={styles.navBar} openBarcodeScanner={this.openBarcodeScanner} />
         <View style={styles.main}>
           <Categories style={styles.categories} openProducts={this.openProducts} />
-          <Products modalOpen={this.state.productsOpen} closeProducts={this.closeProducts} />
+          <Products modalOpen={this.state.productsOpen} closeProducts={this.closeProducts} 
+          id={this.state.productsID}/>
         </View>
         <BarcodeScanner modalOpen={this.state.barcodeScannerOpen}
           closeBarcodeScanner={this.closeBarcodeScanner} />

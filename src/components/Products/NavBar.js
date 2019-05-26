@@ -31,12 +31,12 @@ export class NavBar extends Component {
             <View style={[styles.container, this.props.style]}>
                 <TouchableOpacity style={styles.navButtons}
                     onPress={this.props.closeProducts}>
-                    <Text>Zpět</Text>
+                    <Text style={styles.buttonText}>Zpět</Text>
                 </TouchableOpacity>
 
                 <TouchableOpacity style={styles.navButtons}
                     onPress={this.switchPreferencesStatus}>
-                    <Text>{this.state.filterButtonText}</Text>
+                    <Text style={styles.buttonText}>{this.state.filterButtonText}</Text>
                 </TouchableOpacity>
             </View >
         )
@@ -51,11 +51,13 @@ const styles = StyleSheet.create({
         alignItems: 'center',
     },
     navButtons: {
-        color: 'white',
         padding: 10,
         margin: 10,
-        borderWidth: 2,
         borderRadius: 10,
         minWidth: '15%',
+        backgroundColor: '#b4d329',
+    },
+    buttonText: {
+        color: 'white',
     }
 })

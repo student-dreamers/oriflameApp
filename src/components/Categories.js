@@ -6,27 +6,24 @@ import { api } from '../utils/Api';
 export class Categories extends Component {
     state = {
         categories: [{
-            name: 'loading...',
+            name: 'Načítání...',
         }],
     }
 
     constructor(props) {
-        console.log('lol');
         super(props);
 
         api.getCategories()
             .then(categories => {
-                console.log(categories);
                 this.setState({
                     categories
                 })
-                
-            })
+        })
     }
 
 
     categoryClicked = (id) => {
-        props.openProducts();
+        this.props.openProducts(id);
     }
 
     render() {
@@ -34,8 +31,8 @@ export class Categories extends Component {
         return (
             <View style={styles.container}>
                 {this.state.categories.map((category, index) => (
-                        <TouchableOpacity id={category} key={index} onPress={(e) => {
-                            categoryClicked(e.id);
+                        <TouchableOpacity id={category} key={index} onPress={() => {
+                            this.categoryClicked(category.uuid);
                         }} style={styles.categoriesButtons}>
                             <Text style={styles.categoriesText}>{category.name}</Text>
                         </TouchableOpacity>

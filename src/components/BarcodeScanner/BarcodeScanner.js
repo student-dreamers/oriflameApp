@@ -8,7 +8,7 @@ export const BarcodeScanner = props => {
         <Modal visible={props.modalOpen} style={styles.modal} onRequestClose={props.closeBarcodeScanner}>
             <View style={styles.container}>
                 <TouchableOpacity onPress={props.closeBarcodeScanner} style={styles.backButton}>
-                    <Text>Zpět</Text>
+                    <Text style={styles.buttonText}>Zpět</Text>
                 </TouchableOpacity>
                 <ReactCamera />
             </View>
@@ -29,9 +29,11 @@ const styles = StyleSheet.create({
         top: 15,
         left: 15,
         zIndex: 2,
-        backgroundColor: 'white',
+        backgroundColor: '#b4d329',
         padding: 10,
         borderRadius: 10,
-        borderWidth: 2,
+    },
+    buttonText: {
+        color: 'white',
     }
 })

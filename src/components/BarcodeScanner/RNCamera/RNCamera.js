@@ -66,7 +66,7 @@ const styles = StyleSheet.create({
     barcodeScannerUI: {
         flexShrink: 0,
         zIndex: 2,
-        borderColor: 'red',
+        borderColor: '#b4d329',
         borderWidth: 2,
         minWidth: '50%',
         minHeight: '25%',

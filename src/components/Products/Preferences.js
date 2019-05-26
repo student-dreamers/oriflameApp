@@ -26,6 +26,10 @@ export class Preferences extends Component {
         })
     }
 
+    veganCheck = (checked) => {
+
+    }
+
     onCheck = (checked, allergen) => {
         let selectedAllergens = this.state.selectedAllergens;
         if (checked) {
@@ -46,8 +50,14 @@ export class Preferences extends Component {
     render() {
         return (
             <View style={[this.props.style, styles.container]}>
+                <Checkbox
+                    center
+                    title='Jsem vegan'
+                    onCheck={this.veganCheck}
+                />
                 <Text style={styles.preferencesText}>Nesmí obsahovat:</Text>
                 <View style={styles.preferencesContainer}>
+                    
                     <FlatList
                         style={{
                             width: '100%',

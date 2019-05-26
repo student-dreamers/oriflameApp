@@ -10,9 +10,7 @@ import { ProductDetail } from './ProductDetail';
 export class Products extends Component {
     state = {
         preferencesHeight: 0,
-        products: [{
-            name: 'Načítání...'
-        }],
+        products: [],
         productDetailOpen: false,
         productDetailUUID: this.props.id,
     }
@@ -35,7 +33,7 @@ export class Products extends Component {
         })
     }
 
-    render() {
+    componentWillReceiveProps = () => {
         if (this.props.id) {
             api.getCategoryProducts(this.props.id)
                 .then(products => {
@@ -44,6 +42,13 @@ export class Products extends Component {
                     })
                 })
         }
+    }
+
+    render() {
+        if(!this.props.modalOpen){
+            return null;
+        }
+
         return (
             <Modal visible={this.props.modalOpen}
                 onRequestClose={this.props.closeProducts}>

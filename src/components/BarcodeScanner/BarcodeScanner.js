@@ -19,6 +19,7 @@ export const BarcodeScanner = props => {
 const styles = StyleSheet.create({
     modal: {
         flex: 1,
+        backgroundColor: 'black',
     },
     container: {
         flex: 1,

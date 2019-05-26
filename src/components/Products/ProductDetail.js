@@ -12,20 +12,26 @@ export class ProductDetail extends Component {
         }
     }
 
-    constructor(props){
+    constructor(props) {
         super(props);
 
-        api.getProductByUuidOrEan(this.props.productUUID)
-        .then(product => (
-            this.setState({
-                product,
-            })
-        ))
+        if (this.props.productUUID) {
+            api.getProductByUuidOrEan(this.props.productUUID)
+                .then(product => (
+                    this.setState({
+                        product,
+                    })
+                ))
+        }
     }
 
-    render(){
+    render() {
+        if(!this.props.modalOpen){
+            return null;
+        }
         return (
-            <Modal visible={this.props.modalOpen}>
+            <Modal visible={this.props.modalOpen}
+            onRequestClose={this.props.closeProductDetail}>
                 <View style={styles.container}>
                     <Text style={styles.heading}>
                         {this.state.product.name}
@@ -40,7 +46,7 @@ export class ProductDetail extends Component {
                         </Text>
                     </View>
                     <View style={styles.price}>
-                        <Text>Cena</Text>
+                        <Text>Cena:</Text>
                         <Text>{this.state.product.price}</Text>
                     </View>
                 </View>
@@ -59,9 +65,11 @@ const styles = StyleSheet.create({
     },
     heading: {
         fontSize: 35,
+        textAlign: 'center',
     },
     heading2: {
         fontSize: 25,
+        textAlign: 'center',
     },
     desc: {
 

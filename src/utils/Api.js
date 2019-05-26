@@ -25,13 +25,18 @@ export class Api {
 
     getCategoryProducts(category, filterIngredients = []) {
         const queryString = filterIngredients
-            .map((filterIngredient) => `filterIngredients[]=${encodeURIComponent(filterIngredients)}`)
+            .map((filterIngredients) => `filterIngredients[]=${encodeURIComponent(filterIngredients)}`)
             .join('&');
         return this._fetchResource(`/categories/${category}/products${queryString ? `?${queryString}` : ''}`);
     }
 
     async _fetchResource(path) {
+        console.log('Started to fath resource ' + path);
         const response = await fetch(`${this.apiUrl}${path}`);
+        if (response.status !== 200){
+            throw new Error('Not loaded ' + path);
+        }
+        console.log('Successfully loaded ' + path);
         return await response.json();
     }
 }

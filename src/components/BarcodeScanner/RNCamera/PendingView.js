@@ -11,6 +11,7 @@ export const PendingView = () => (
         flexShrink: 0,
         justifyContent: 'center',
         alignItems: 'center',
+        backgroundColor: 'black'
       }}
     >
       <Text style={{

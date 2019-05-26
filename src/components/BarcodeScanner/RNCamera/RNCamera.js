@@ -11,12 +11,18 @@ export class ReactCamera extends Component{
     }
 
     onBarcodeScanned = (barcode) => {
-        if (barcode.data) {
+       if (barcode.data) {
             this.setState({
                 productDetailOpen: true,
                 productUUID: barcode.data,
             })
-        }
+        } 
+    }
+
+    closeProductDetail = () => {
+        this.setState({
+            productDetailOpen: false,
+        })
     }
 
     render() {
@@ -31,7 +37,7 @@ export class ReactCamera extends Component{
                     captureAudio={false}
                     flashMode={RNCamera.Constants.FlashMode.on}
                     onBarCodeRead={(barcode) => {
-                        onBarcodeScanned(barcode);
+                        this.onBarcodeScanned(barcode);
                     }}
                     androidCameraPermissionOptions={{
                         title: 'Permission to use camera',
@@ -56,7 +62,8 @@ export class ReactCamera extends Component{
                     }}
                 </RNCamera>
                 <ProductDetail modalOpen={this.state.productDetailOpen}
-                productUUID={this.state.productUUID}/>
+                productUUID={this.state.productUUID} 
+                closeProductDetail={this.closeProductDetail}/>
             </View>
         )
     }
@@ -67,6 +74,7 @@ const styles = StyleSheet.create({
         flex: 1,
         justifyContent: 'center',
         alignItems: 'center',
+        backgroundColor: 'black'
     },
     preview: {
         flex: 1,

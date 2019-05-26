@@ -29,13 +29,17 @@ export class Categories extends Component {
     render() {
         return (
             <View style={styles.container}>
-                {this.state.categories.map((category, index) => (
+                {this.state.categories.length > 0 ?
+                    this.state.categories.map((category, index) => (
                         <TouchableOpacity id={category} key={index} onPress={() => {
                             this.categoryClicked(category.uuid);
                         }} style={styles.categoriesButtons}>
                             <Text style={styles.categoriesText}>{category.name}</Text>
                         </TouchableOpacity>
-                ))}
+                ))
+                :
+                <Text>Žádné kategorie nenalezeny</Text>
+                }
             </View>
         )
     }

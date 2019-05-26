@@ -1,10 +1,11 @@
 import React, { Component } from 'react';
-import { View, Modal, StyleSheet } from 'react-native';
+import { View, Modal, StyleSheet, FlatList } from 'react-native';
 import { ifIphoneX } from 'react-native-iphone-x-helper';
 import { Preferences } from './Preferences';
 import { NavBar } from './NavBar';
 import { api } from '../../utils/Api';
 import { ProductCard } from './ProductCard';
+import { ProductDetail } from './ProductDetail';
 
 export class Products extends Component {
     state = {
@@ -12,11 +13,8 @@ export class Products extends Component {
         products: [{
             name: 'Načítání...'
         }],
-    }
-
-    constructor(props) {
-        super(props);
-
+        productDetailOpen: false,
+        productDetailUUID: this.props.id,
     }
 
     showPreferencesPanel = () => {
@@ -30,12 +28,17 @@ export class Products extends Component {
         })
     }
 
+    cardClicked = (UUID) => {
+        this.setState({
+            productDetailOpen: true,
+            productDetailUUID: UUID,
+        })
+    }
+
     render() {
         if (this.props.id) {
-            console.log('Props ID: ' + this.props.id);
             api.getCategoryProducts(this.props.id)
                 .then(products => {
-                    console.log('Products: ' + products)
                     this.setState({
                         products
                     })
@@ -54,16 +57,26 @@ export class Products extends Component {
                         borderBottomWidth: this.state.preferencesHeight ? 2 : 0,
                     }]} />
                     <View style={styles.Products}>
-                        {this.state.products.map((product, index) => (
+                        <FlatList 
+                        data={this.state.products}
+                        style={{
+                            width: '100%',
+                            paddingBottom: 20,
+                        }}
+                        renderItem={ ({item}) => (
                             <ProductCard
-                                key={index}
-                                url_image={false}
-                                price={product.price}
-                                name={product.name}
+                                key={item.uuid}
+                                url_image={item.url_image}
+                                price={item.price}
+                                name={item.name}
+                                onPress={this.cardClicked}
                             />
-                        ))}
+                        )} />
                     </View>
                 </View>
+                <ProductDetail 
+                modalOpen={this.props.productDetailOpen}
+                productUUID={this.props.productDetailUUID}/>
             </Modal>
         )
     }
@@ -86,6 +99,8 @@ const styles = StyleSheet.create({
         borderBottomWidth: 2,
     },
     Products: {
+        width: '80%',
         height: '90%',
-    }
+        alignItems: 'center',
+    },
 })

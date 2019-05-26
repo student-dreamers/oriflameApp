@@ -1,16 +1,25 @@
-import React from 'react';
+import React, { Component } from 'react';
 import { RNCamera } from 'react-native-camera';
 import { View, StyleSheet } from 'react-native';
 import Text from '@components/Text';
 import { PendingView } from './PendingView';
+import { ProductDetail } from '@components/Products/ProductDetail';
 
-export const ReactCamera = () => {
-        onBarcodeScanned = (barcode) => {
-            if(barcode.data){
-                alert(barcode.data);
-            }
+export class ReactCamera extends Component{
+    state = {
+        productDetailOpen: false,
+    }
+
+    onBarcodeScanned = (barcode) => {
+        if (barcode.data) {
+            this.setState({
+                productDetailOpen: true,
+                productUUID: barcode.data,
+            })
         }
+    }
 
+    render() {
         return (
             <View style={styles.container}>
                 <RNCamera
@@ -36,7 +45,7 @@ export const ReactCamera = () => {
                         buttonPositive: 'Ok',
                         buttonNegative: 'Cancel',
                     }}
-                    >
+                >
                     {({ camera, status, recordAudioPermissionStatus }) => {
                         if (status !== 'READY') return <PendingView />;
                         return (
@@ -46,9 +55,11 @@ export const ReactCamera = () => {
                         );
                     }}
                 </RNCamera>
+                <ProductDetail modalOpen={this.state.productDetailOpen}
+                productUUID={this.state.productUUID}/>
             </View>
-
         )
+    }
 }
 
 const styles = StyleSheet.create({

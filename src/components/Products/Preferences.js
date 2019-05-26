@@ -27,7 +27,6 @@ export class Preferences extends Component {
     }
 
     onCheck = (checked, allergen) => {
-        console.log(checked);
         let selectedAllergens = this.state.selectedAllergens;
         if (checked) {
             selectedAllergens.push(allergen);
@@ -41,7 +40,6 @@ export class Preferences extends Component {
         this.setState({
             selectedAllergens: selectedAllergens,
         })
-        console.log(this.state.selectedAllergens);
     }
 
 
@@ -52,6 +50,7 @@ export class Preferences extends Component {
                 <View style={styles.preferencesContainer}>
                     <FlatList
                         style={{
+                            width: '100%',
                             paddingBottom: 20,
                         }}
                         data={allergenElements}
@@ -65,6 +64,7 @@ export class Preferences extends Component {
 
 const styles = StyleSheet.create({
     container: {
+        width: '100%',
         padding: 10,
         paddingTop: 0,
         paddingBottom: 0,
@@ -73,6 +73,7 @@ const styles = StyleSheet.create({
     preferencesContainer: {
         flexGrow: 0,
         height: '80%',
+        width: '80%',
         alignItems: 'flex-start',
     },
     preferencesText: {

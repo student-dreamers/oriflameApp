@@ -27,7 +27,6 @@ export class Categories extends Component {
     }
 
     render() {
-        console.log(this.state.categories);
         return (
             <View style={styles.container}>
                 {this.state.categories.map((category, index) => (
@@ -59,7 +58,7 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         justifyContent: 'center',
         width: '35%',
-        height: '10%',
+        height: '12%',
         backgroundColor: '#b4d329',
         flexGrow: 0,
         flexShrink: 0,

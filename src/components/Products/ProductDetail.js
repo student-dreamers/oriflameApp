@@ -1,26 +1,53 @@
-import React from 'react';
-import { View, StyleSheet, Image } from 'react-native';
+import React, { Component } from 'react';
+import { Modal, View, StyleSheet, Image } from 'react-native';
+import Text from '@components/Text';
+import { api } from '../../utils/Api';
 
-export const ProductDetail = props => (
-    <View style={styles.container}>
-        <Text style={styles.heading}>
-            {props.name}
-        </Text>
-        <Image source={{
-            uri: props.imageSource
-        }} style={styles.image}/>
-        <View style={styles.desc}>
-            <Text style={styles.heading2}>Složení</Text>
-            <Text style={styles.descText}>
-                {props.desc}
-            </Text>
-        </View>
-        <View style={styles.price}>
-            <Text>Cena</Text>
-            <Text>{props.price}</Text>
-        </View>
-    </View>
-)
+export class ProductDetail extends Component {
+    state = {
+        product: {
+            name: 'Načítání...',
+            desc: 'Načítání...',
+            price: 'Načítání...',
+        }
+    }
+
+    constructor(props){
+        super(props);
+
+        api.getProductByUuidOrEan(this.props.productUUID)
+        .then(product => (
+            this.setState({
+                product,
+            })
+        ))
+    }
+
+    render(){
+        return (
+            <Modal visible={this.props.modalOpen}>
+                <View style={styles.container}>
+                    <Text style={styles.heading}>
+                        {this.state.product.name}
+                    </Text>
+                    <Image source={{
+                        uri: this.state.product.url_image
+                    }} style={styles.image} />
+                    <View style={styles.desc}>
+                        <Text style={styles.heading2}>Složení</Text>
+                        <Text style={styles.descText}>
+                            {this.state.product.desc}
+                        </Text>
+                    </View>
+                    <View style={styles.price}>
+                        <Text>Cena</Text>
+                        <Text>{this.state.product.price}</Text>
+                    </View>
+                </View>
+            </Modal>
+        )
+    }
+}
 
 const styles = StyleSheet.create({
     container: {

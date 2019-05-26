@@ -28,9 +28,14 @@ export default class App extends Component {
 
   openProducts = (id) => {
     this.setState({
-      productsOpen: true,
       productsID: id,
-    })
+    });
+    setTimeout( () =>{
+      this.setState({
+        productsOpen: true,
+      });
+    }, 100);
+    
   }
 
   closeProducts = () => {

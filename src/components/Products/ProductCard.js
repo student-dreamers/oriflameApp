@@ -5,22 +5,34 @@ const dimensions = Dimensions.get('window');
 const imageHeight = Math.round(dimensions.width * 9 / 16);
 const imageWidth = dimensions.width;
 
-export const ProductCard = props => (
-    <TouchableOpacity onPress={() => {
-        props.onPress(props.uuid);
-    }}>
-        <View style={styles.container}>
-            <Image source={{
-                uri: props.url_image
-            }}
-                style={styles.image} />
-            <View style={styles.textContainer}>
-                <Text style={styles.text}>{props.name}</Text>
-                <Text style={styles.text}>{props.price} Kč</Text>
+export const ProductCard = props => {
+    return(
+        <TouchableOpacity onPress={() => {
+            props.onPress(props.uuid);
+        }}>
+            <View style={styles.container}>
+                <Image source={{
+                    uri: props.url_image
+                }}
+                    style={styles.image} />
+                <View style={styles.textContainer}>
+                    <Text style={[styles.text, {
+                        flexGrow: 1,
+                    }]}>{props.name}</Text>
+                    <Text style={[styles.text, {
+                        flexGrow: 0,
+                    }]}>{props.price} Kč</Text>
+                </View>
+                <View style={styles.scoreContainer}>
+                    <Text style={styles.text}>Skóre: {
+                        Math.round(props.score * 100)
+                        }</Text>
+                </View>
             </View>
-        </View>
-    </TouchableOpacity>
-)
+        </TouchableOpacity>
+    )
+}
+    
 
 const styles = StyleSheet.create({
     container: {
@@ -45,5 +57,8 @@ const styles = StyleSheet.create({
         fontSize: 20,
         width: '40%',
         textAlign: 'center',
+    },
+    scoreContainer: {
+
     }
 })

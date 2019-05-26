@@ -12,7 +12,6 @@ export class Products extends Component {
         preferencesHeight: 0,
         products: [],
         productDetailOpen: false,
-        productDetailUUID: this.props.id,
     }
 
     showPreferencesPanel = () => {
@@ -26,12 +25,20 @@ export class Products extends Component {
         })
     }
 
+    closeProductDetail = () => {
+        this.setState({
+            productDetailOpen: false,
+        })
+    }
+
     cardClicked = (UUID) => {
         this.setState({
             productDetailOpen: true,
             productDetailUUID: UUID,
         })
     }
+
+    keyExtractor = (item) => item.uuid;
 
     componentWillReceiveProps = () => {
         if (this.props.id) {
@@ -45,7 +52,7 @@ export class Products extends Component {
     }
 
     render() {
-        if(!this.props.modalOpen){
+        if (!this.props.modalOpen) {
             return null;
         }
 
@@ -62,26 +69,36 @@ export class Products extends Component {
                         borderBottomWidth: this.state.preferencesHeight ? 2 : 0,
                     }]} />
                     <View style={styles.Products}>
-                        <FlatList 
-                        data={this.state.products}
-                        style={{
-                            width: '100%',
-                            paddingBottom: 20,
-                        }}
-                        renderItem={ ({item}) => (
-                            <ProductCard
-                                key={item.uuid}
-                                url_image={item.url_image}
-                                price={item.price}
-                                name={item.name}
-                                onPress={this.cardClicked}
-                            />
-                        )} />
+                        <FlatList
+                            data={this.state.products}
+                            style={{
+                                width: '100%',
+                                paddingBottom: 20,
+                            }}
+                            renderItem={({ item }) => (
+                                <ProductCard
+                                    key={item.uuid}
+                                    url_image={item.url_image}
+                                    price={item.price}
+                                    name={item.name}
+                                    onPress={this.cardClicked}
+                                    score={item.score}
+                                    uuid={item.uuid}
+                                />
+                            )}
+                            keyExtractor={this.keyExtractor} />
                     </View>
                 </View>
-                <ProductDetail 
-                modalOpen={this.props.productDetailOpen}
-                productUUID={this.props.productDetailUUID}/>
+                {
+                    this.state.productDetailUUID ?
+                        <ProductDetail
+                            modalOpen={this.state.productDetailOpen}
+                            productUUID={this.state.productDetailUUID}
+                            closeProductDetail={this.closeProductDetail} />
+                    :
+                    null
+                }
+
             </Modal>
         )
     }

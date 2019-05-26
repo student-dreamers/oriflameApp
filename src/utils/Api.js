@@ -31,12 +31,10 @@ export class Api {
     }
 
     async _fetchResource(path) {
-        console.log('Started to fath resource ' + path);
         const response = await fetch(`${this.apiUrl}${path}`);
-        if (response.status !== 200){
-            throw new Error('Not loaded ' + path);
+        if (response.status === 404){
+            throw new Error('Nenalezeno');
         }
-        console.log('Successfully loaded ' + path);
         return await response.json();
     }
 }

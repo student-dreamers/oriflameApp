@@ -21,8 +21,6 @@ export class ProductDetail extends Component {
     constructor(props) {
         super(props);
 
-        
-
         if (this.props.productUUID) {
             try {
                 api.getProductByUuidOrEan(this.props.productUUID)
@@ -43,14 +41,13 @@ export class ProductDetail extends Component {
     }
 
     render() {
-        console.log(this.state.product);
         if (!this.props.modalOpen) {
             return null;
         }
         if (this.state.product.productIngredients) {
             this.state.product.productIngredients.map( (ingredient, index) => (
                ingredientsElements.push(
-                    <Text key={index}
+                    <Text key={Math.random()}
                     style={styles.ingreditents}>{ingredient.ingredient_name}</Text>
                 )
             ))
@@ -103,8 +100,8 @@ const styles = StyleSheet.create({
         padding: 20,
     },
     image: {
-        width: 100,
-        height: 50,
+        width: imageWidth,
+        height: imageHeight,
     },
     heading: {
         fontSize: 35,

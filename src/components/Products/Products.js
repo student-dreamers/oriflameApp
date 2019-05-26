@@ -38,7 +38,7 @@ export class Products extends Component {
         })
     }
 
-    keyExtractor = (item) => item.uuid;
+    keyExtractor = (item) => Math.random();
 
     componentWillReceiveProps = () => {
         if (this.props.id) {
@@ -55,7 +55,7 @@ export class Products extends Component {
         if (!this.props.modalOpen) {
             return null;
         }
-
+        console.log(this.state.products);
         return (
             <Modal visible={this.props.modalOpen}
                 onRequestClose={this.props.closeProducts}>
@@ -75,9 +75,10 @@ export class Products extends Component {
                                 width: '100%',
                                 paddingBottom: 20,
                             }}
+                            keyExtractor={this.keyExtractor}
                             renderItem={({ item }) => (
                                 <ProductCard
-                                    key={item.uuid}
+                                    key={Math.random()}
                                     url_image={item.url_image}
                                     price={item.price}
                                     name={item.name}
@@ -86,7 +87,7 @@ export class Products extends Component {
                                     uuid={item.uuid}
                                 />
                             )}
-                            keyExtractor={this.keyExtractor} />
+                             />
                     </View>
                 </View>
                 {
